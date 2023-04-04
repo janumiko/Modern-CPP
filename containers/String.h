@@ -1,35 +1,37 @@
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 #include <memory>
 
 #include "MyString.h"
 using namespace std;
 
-class String{
-   using string = emcpp::MyString;
-//    using string = std::string;
+class String
+{
+    using string = emcpp::MyString;
+    //    using string = std::string;
 
-/// Store a pointer to dynamically allocated string!
+    /// Store a pointer to dynamically allocated string!
 
-private:
+  private:
     std::shared_ptr<string> text{nullptr};
-public:
+
+  public:
     String()
     {
         this->text = std::make_shared<string>();
-    };     /// creates an empty string  
+    }; /// creates an empty string
 
-    String(const char* str)
+    String(const char *str)
     {
         this->text = std::make_shared<string>(str);
-    };           /// copy C-string
+    }; /// copy C-string
 
-    String(const String& s)
+    String(const String &s)
     {
         this->text = s.text;
-    };            /// no copy
+    }; /// no copy
 
-    String operator=(const String & s)
+    String operator=(const String &s)
     {
         this->text = s.text;
         return *this;
@@ -68,7 +70,7 @@ public:
         return String((*a.text + *b.text).c_str());
     };
 
-    friend std::ostream & operator<< (std::ostream & out, String s)
+    friend std::ostream &operator<<(std::ostream &out, String s)
     {
         out << *s.text;
         return out;
