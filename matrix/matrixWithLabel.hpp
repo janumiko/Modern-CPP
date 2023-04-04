@@ -5,24 +5,33 @@
 
 class MatrixWithLabel : public Matrix
 {
-private:
-  std::string label{"A"};
-public:
-  using Matrix::Matrix;
+  private:
+    std::string label{"A"};
 
-  MatrixWithLabel(std::string label, std::size_t height, std::size_t width) : Matrix(height, width), label(std::move(label)) {}
+  public:
+    using Matrix::Matrix;
 
-  MatrixWithLabel(std::string label, const std::initializer_list<std::initializer_list<double>>& list) : Matrix(list), label(std::move(label)) {}
+    MatrixWithLabel(std::string label, std::size_t height, std::size_t width)
+        : Matrix(height, width), label(std::move(label))
+    {
+    }
 
-  const std::string& getLabel() const;
+    MatrixWithLabel(std::string label, const std::initializer_list<std::initializer_list<double>> &list)
+        : Matrix(list), label(std::move(label))
+    {
+    }
 
-  void setLabel(const std::string& label);
+    const std::string &getLabel() const;
 
-  MatrixWithLabel(const MatrixWithLabel& m) : Matrix(m), label(std::move(m.label)) {}
+    void setLabel(const std::string &label);
 
-  MatrixWithLabel(MatrixWithLabel&& m) = default;
+    MatrixWithLabel(const MatrixWithLabel &m) : Matrix(m), label(std::move(m.label))
+    {
+    }
 
-  MatrixWithLabel& operator=(MatrixWithLabel&& m) = default;
+    MatrixWithLabel(MatrixWithLabel &&m) = default;
+
+    MatrixWithLabel &operator=(MatrixWithLabel &&m) = default;
 };
 
 #endif
