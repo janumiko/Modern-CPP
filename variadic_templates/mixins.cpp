@@ -35,7 +35,7 @@ class Circle
     }
     double area()
     {
-        return 3.24 * r * r;
+        return 3.141 * r * r;
     }
 };
 class Rectangle
