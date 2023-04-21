@@ -1,3 +1,6 @@
+#ifndef TEMPLATES_HPP
+#define TEMPLATES_HPP
+
 #include <algorithm>
 #include <cmath>
 #include <iostream>
@@ -46,3 +49,5 @@ template <typename T, T (*f)(T), unsigned N> void process(T array[])
 {
     std::transform(array, array + N, array, f);
 }
+
+#endif // TEMPLATES_HPP

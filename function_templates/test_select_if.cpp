@@ -1,29 +1,17 @@
-#include <algorithm>
 #include <deque>
 #include <iostream>
 #include <list>
 #include <vector>
 
-bool biggerThan5(int x)
-{
-    return x > 5;
-}
-
-/// TODO
-template <template <typename, typename> class OutContainer, template <typename, typename> class InContainer, typename T,
-          typename Alloc, typename Predicate>
-OutContainer<T, Alloc> selectIf(const InContainer<T, Alloc> &c, Predicate p)
-{
-    OutContainer<T, Alloc> out(std::count_if(c.begin(), c.end(), p));
-    std::copy_if(c.begin(), c.end(), out.begin(), p);
-    return out;
-}
+#include "select_if.hpp"
 
 int main()
 {
     auto print = [](auto v) {
         for (auto x : v)
+        {
             std::cout << x << " ";
+        }
         std::cout << std::endl;
     };
 

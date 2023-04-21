@@ -4,7 +4,7 @@
 #include <list>
 #include <vector>
 
-#include "templates.cpp"
+#include "templates.hpp"
 
 using namespace std;
 

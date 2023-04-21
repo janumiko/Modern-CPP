@@ -1,7 +1,5 @@
-#include <cstring>
-#include <iostream>
-
-using namespace std;
+#ifndef COMPARE_HPP
+#define COMPARE_HPP
 
 struct Rational
 {
@@ -59,15 +57,4 @@ template <> int compare(const char *a, const char *b)
     return 0;
 }
 
-int main()
-{
-    int a = 1, b = -6;
-    float y = 1.0 + 1e20 - 1e20, x = 1.0;
-    cout << compare(a, b) << " " << compare(b, a) << " " << compare(a, a) << endl;
-    cout << compare(x, y) << " " << compare(y, x) << " " << compare(x, x) << endl;
-    cout << compare(&a, &b) << " " << compare(&b, &a) << " " << compare(&a, &a) << endl;
-    cout << compare(&x, &y) << " " << compare(&y, &x) << " " << compare(&x, &x) << endl;
-    cout << compare("Alpha", "Alfa") << endl;
-
-    return 0;
-}
+#endif // COMPARE_HPP
