@@ -1,13 +1,12 @@
 #include "multi_vector.hpp"
 #include <iostream>
 #include <vector>
-using namespace std;
 
 int main()
 {
-    MultiVector<int, string, double> m;
+    MultiVector<int, std::string, double> m;
     m.push_back(5);
-    m.push_back(string("text"));
+    m.push_back(std::string("text"));
     m.push_back(7);
     m.push_back(1.2);
     m.print(); // [ 5 7 ] [ text ] [ 1.2 ]

@@ -2,12 +2,10 @@
 #include <iostream>
 #include <typeinfo>
 
-using namespace std;
-
 double f(int x, double y, const int &z, int &w)
 {
     w += 2;
-    cout << x << " " << y << " " << z << " " << w << endl;
+    std::cout << x << " " << y << " " << z << " " << w << std::endl;
     return (x * y - z * w);
 }
 
@@ -20,21 +18,22 @@ int main()
 
     auto p = Proxy(f);
     auto result1 = p(12, 5.1, y, x);
-    cout << "result1 = " << result1 << endl;
+    std::cout << "result1 = " << result1 << std::endl;
     auto result2 = p(12, 5.1, y, x);
-    cout << "result2 = " << result2 << endl;
+    std::cout << "result2 = " << result2 << std::endl;
     auto result3 = p(3, 3, 5, x);
-    cout << "result3 = " << result3 << endl;
+    std::cout << "result3 = " << result3 << std::endl;
 
     auto g = Proxy([](int &&x, int &y) {
         y = x;
         return y;
     });
     //   auto g = Proxy([](int &&x, int & y){ y = x; return y; }) ; // with C++ 17
-    cout << g(5, x) << endl;
-    cout << "x = " << x << endl;
+    std::cout << g(5, x) << std::endl;
+    std::cout << "x = " << x << std::endl;
     return 0;
 }
+
 /** Expected output
  1 > int& [i] = 4
  2 > double [d] = 4.5

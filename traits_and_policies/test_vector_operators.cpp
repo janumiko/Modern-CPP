@@ -1,125 +1,4 @@
-#include <iostream>
-using namespace std;
-
-template <int N> class Vector
-{
-    int data[N];
-
-  public:
-    Vector()
-    {
-        cout << " Default constr" << endl;
-    }
-    Vector(std::initializer_list<int> list)
-    {
-        cout << " Init list constr" << endl;
-        auto it = list.begin();
-        for (int i = 0; i < N; i++)
-        {
-            data[i] = *it++;
-        }
-    }
-    Vector(const Vector &m)
-    {
-        std::copy(m.data, m.data + N, data);
-        cout << " Copy constr" << endl;
-    }
-    int operator[](int index) const
-    {
-        return data[index];
-    }
-    int &operator[](int index)
-    {
-        return data[index];
-    }
-
-    friend ostream &operator<<(ostream &out, const Vector &m)
-    {
-        for (auto x : m.data)
-        {
-            cout << x << ", ";
-        }
-        return out;
-    }
-};
-
-template <typename Left, typename Right> class Node
-{
-  protected:
-    const Left &left;
-    const Right &right;
-
-  public:
-    Node(Left &&l, Right &&r) : left(std::forward<Left>(l)), right(std::forward<Right>(r))
-    {
-    }
-
-    virtual int operator[](int index) const = 0;
-
-    template <int N> operator Vector<N>()
-    {
-        Vector<N> result;
-        for (int i = 0; i < N; i++)
-        {
-            result[i] = (*this)[i];
-        }
-        return result;
-    }
-};
-
-template <typename Left, typename Right> class AdditionNode : public Node<Left, Right>
-{
-  public:
-    AdditionNode(Left &&l, Right &&r) : Node<Left, Right>(std::forward<Left>(l), std::forward<Right>(r))
-    {
-    }
-
-    int operator[](int index) const override
-    {
-        return this->left[index] + this->right[index];
-    }
-};
-
-template <typename Left, typename Right> class SubtractionNode : public Node<Left, Right>
-{
-  public:
-    SubtractionNode(Left &&l, Right &&r) : Node<Left, Right>(std::forward<Left>(l), std::forward<Right>(r))
-    {
-    }
-
-    int operator[](int index) const override
-    {
-        return this->left[index] - this->right[index];
-    }
-};
-
-template <typename Left, typename Right> class MultiplicationNode : public Node<Left, Right>
-{
-  public:
-    MultiplicationNode(Left &&l, Right &&r) : Node<Left, Right>(std::forward<Left>(l), std::forward<Right>(r))
-    {
-    }
-
-    int operator[](int index) const override
-    {
-        return this->left * this->right[index];
-    }
-};
-
-template <typename Left, typename Right> AdditionNode<Left, Right> operator+(Left &&l, Right &&r)
-{
-    return AdditionNode<Left, Right>(std::forward<Left>(l), std::forward<Right>(r));
-}
-
-template <typename Left, typename Right> SubtractionNode<Left, Right> operator-(Left &&l, Right &&r)
-{
-    return SubtractionNode<Left, Right>(std::forward<Left>(l), std::forward<Right>(r));
-}
-
-template <typename Left, typename Right> MultiplicationNode<Left, Right> operator*(Left &&l, Right &&r)
-{
-    return MultiplicationNode<Left, Right>(std::forward<Left>(l), std::forward<Right>(r));
-}
+#include "vector_operators.hpp"
 
 int main()
 {
@@ -128,16 +7,16 @@ int main()
     V x(v);
     V y{4, 4, 2, 5, 3, 2, 3, 4, 2, 1};
 
-    cout << "Lazy operations :\n";
+    std::cout << "Lazy operations :\n";
     // It does not create temporary Vectors
     // It computes resulting vector coordinate by coordinate
     // (evaluating whole expression)
     V z = v + x + 3 * y - 2 * x;
-    cout << z << endl;
+    std::cout << z << std::endl;
 
     // Computes only one coordinate of Vector
     int e = (z + x + y)[2];
-    cout << " e = " << e << endl;
+    std::cout << " e = " << e << std::endl;
     return 0;
 }
 /**
