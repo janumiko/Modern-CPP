@@ -57,7 +57,7 @@ template <typename T> auto sum(const T &c)
 {
     if constexpr (Container<T>)
     {
-        return std::accumulate(c.begin(), c.end(), typename T::value_type());
+        return std::reduce(c.begin(), c.end());
     }
     else
     {
