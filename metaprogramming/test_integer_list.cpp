@@ -6,7 +6,6 @@
 
 int main()
 {
-
     using listA = IntegerList<5, -1, 5, 2, 1>;
     using listB = IntegerList<1, 4, 6, 9>;
     std::cout << "List A : " << listA() << std::endl;
