@@ -58,9 +58,19 @@ template <int... L, int... R> struct Join<IntegerList<L...>, IntegerList<R...>>
 
 template <typename L> struct IsSorted;
 
-template <int... L> struct IsSorted<IntegerList<L...>>
+template <int Head, int Second, int... Tail> struct IsSorted<IntegerList<Head, Second, Tail...>>
 {
-    constexpr static const bool value = (... < L);
+    constexpr static const bool value = (Head <= Second) && IsSorted<IntegerList<Second, Tail...>>::value;
+};
+
+template <int Head, int Second> struct IsSorted<IntegerList<Head, Second>>
+{
+    constexpr static const bool value = Head <= Second;
+};
+
+template <int Head> struct IsSorted<IntegerList<Head>>
+{
+    constexpr static const bool value = true;
 };
 
 template <typename L> struct Max;
